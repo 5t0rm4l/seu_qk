@@ -359,7 +359,10 @@ def I_just_wanna_this_one(semesterNum,courseName, url, apilist):
 
     pattern = (courseName + '.*?(\"8%\" id=\"(.{0,20})\" align)')  # possible problem here??
     #获取课程编号
-    courseNo = re.findall(pattern,text,re.S)[0][1]
+    try:
+        courseNo = re.findall(pattern,text,re.S)[0][1]
+    except IndexError:
+        print "未找到有关课程，换个关键字再试一次？"
     #构造数据包
     posturl = "http://xk.urp.seu.edu.cn/jw_css/xk/runSelectclassSelectionAction.action?select_jxbbh="+courseNo+"&select_xkkclx="+apilist[1]+"&select_jhkcdm="+apilist[0]+"&select_mkbh=" + apilist[2]
     headers = { 
