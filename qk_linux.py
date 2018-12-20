@@ -24,7 +24,7 @@ import sys
 import configparser
 
 reload(sys)
-sys.setdefaultencoding("gbk")
+sys.setdefaultencoding("utf-8")
 
 def read_from_config(filepath):
     cf = configparser.ConfigParser()
@@ -425,8 +425,6 @@ if __name__ == "__main__":
     api = []
     mode = 4
     mode = input(u'\n选择使用哪种模式(1-4)-> ')
-    # userId = raw_input(u'请输入一卡通号(如:213111111)：')
-    # passWord = raw_input(u'请输入密码(如:65535)：')
     semester = input(u'选择学期编号(短学期:1，秋季:2，春季:3)-> ')
 
     inputCaptcha = True
@@ -443,18 +441,12 @@ if __name__ == "__main__":
             Mode2(semester, url)
         if 3 == mode:
             courseName = raw_input(u'请输入你想值守的人文课名称或者其关键词(如:音乐鉴赏)-> ')
-            try:
-                courseName.decode('utf-8')
-            except:
-                courseName.decode('gbk').encode('utf-8')  #handle the input from cmd
+            courseName.decode('utf-8')
             api = ['00034','45','rwskl','15']
             I_just_wanna_this_one(semester,courseName, url, api)
         if 4 == mode:
             courseName = raw_input(u'请输入你想值守的体育课名称或者其关键词(如:棒垒球)-> ')
-            try:
-                courseName.decode('utf-8')
-            except:
-                courseName.decode('gbk').encode('utf-8')  #handle the input from cmd
+            courseName.decode('utf-8')
             api = ['18M04000','34','18010014','13']
             I_just_wanna_this_one(semester,courseName, url, api)
     else:

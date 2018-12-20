@@ -7,8 +7,7 @@ configparser 读取.ini文件:
 
 ## 使用方法
 1. 修改`config.ini`文件，填上自己的一卡通与密码
-2. `qk.py` 第27行，`sys.setdefaultencoding("gbk")`，linux用户改为utf-8
-3. `python(2) qk.py`
+2. `python(2) qk_win.py/qk_linux.py` 
 
 ## Todo
 验证码自动识别
