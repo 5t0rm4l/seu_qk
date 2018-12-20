@@ -1,10 +1,16 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/python  
 
-#################################################################
-# selectOthers(jhkcdm,xkkclx,mkbh,ind)
+###########################################################################################
+# “另行选择“构造窗口的js源码 找到调用时对应的
+# selectOthers(jhkcdm,xkkclx,mkbh,ind)就可以自己构造出请求的网页了
 # eg: http://xk.urp.seu.edu.cn/jw_css/xk/runViewsecondSelectClassAction.action?select_jhkcdm=00034&select_mkbh=rwskl&select_xkkclx=45&select_dxdbz=0
-
+# selectOthers(jhkcdm,xkkclx,mkbh,ind){
+# ....
+#  var retObj = window.showModalDialog("runViewsecondSelectClassAction.action?Wv3opdZQ89ghgd88wjff43Dsdf4Fsd4SSg9FsgG49koguSd2fRVsfweSUj=" + new Date() + 
+#  "&select_jhkcdm=" + jhkcdm + "&select_mkbh=" + mkbh+"&select_xkkclx="+xkkclx+"&select_dxdbz=0",obj,sFeatures);
+#  ...
+# }
 
 import HTMLParser  
 import urlparse  
@@ -18,7 +24,7 @@ import sys
 import configparser
 
 reload(sys)
-sys.setdefaultencoding( "utf-8" )
+sys.setdefaultencoding("gbk")
 
 def read_from_config(filepath):
     cf = configparser.ConfigParser()
@@ -51,7 +57,7 @@ def loginIn(userName, passWord, inputCaptcha = True):
 
 	if inputCaptcha == True:  # manually input the capthcha
 	#读取验证码
-		code = raw_input(u'请打开我所在目录下的code.jpg，并在这里敲入里面的四位数字验证码：'.encode('gbk'))
+		code = raw_input(u'请打开我所在目录下的code.jpg，并在这里敲入里面的四位数字验证码：')
 		
 
     #构造post数据
@@ -363,6 +369,7 @@ def I_just_wanna_this_one(semesterNum,courseName, url, apilist):
         courseNo = re.findall(pattern,text,re.S)[0][1]
     except IndexError:
         print "未找到有关课程，换个关键字再试一次？"
+
     #构造数据包
     posturl = "http://xk.urp.seu.edu.cn/jw_css/xk/runSelectclassSelectionAction.action?select_jxbbh="+courseNo+"&select_xkkclx="+apilist[1]+"&select_jhkcdm="+apilist[0]+"&select_mkbh=" + apilist[2]
     headers = { 
@@ -415,12 +422,12 @@ if __name__ == "__main__":
     print u"3. 孤注一掷模式：只值守你指定的一门人文课"
     print u"4. 孤注一掷模式：只值守你指定的一门体育课"
     print u"AlERT! 模式3, 4只能检索英文，中文编码不成功，所以，，，就先这样"
-    
+    api = []
     mode = 4
-    mode = input(u'\n选择使用哪种模式(1-4)-> '.encode('gbk'))
-    # userId = raw_input(u'请输入一卡通号(如:213111111)：'.encode('gbk'))
-    # passWord = raw_input(u'请输入密码(如:65535)：'.encode('gbk'))
-    semester = input(u'选择学期编号(短学期:1，秋季:2，春季:3)-> '.encode('gbk'))
+    mode = input(u'\n选择使用哪种模式(1-4)-> ')
+    # userId = raw_input(u'请输入一卡通号(如:213111111)：')
+    # passWord = raw_input(u'请输入密码(如:65535)：')
+    semester = input(u'选择学期编号(短学期:1，秋季:2，春季:3)-> ')
 
     inputCaptcha = True
     userName, passWord = read_from_config('config.ini')
@@ -435,7 +442,7 @@ if __name__ == "__main__":
         if 2 == mode:
             Mode2(semester, url)
         if 3 == mode:
-            courseName = raw_input(u'请输入你想值守的人文课名称或者其关键词(如:音乐鉴赏)-> '.encode('gbk'))
+            courseName = raw_input(u'请输入你想值守的人文课名称或者其关键词(如:音乐鉴赏)-> ')
             try:
                 courseName.decode('utf-8')
             except:
@@ -443,7 +450,7 @@ if __name__ == "__main__":
             api = ['00034','45','rwskl','15']
             I_just_wanna_this_one(semester,courseName, url, api)
         if 4 == mode:
-            courseName = raw_input(u'请输入你想值守的体育课名称或者其关键词(如:棒垒球)-> '.encode('gbk'))
+            courseName = raw_input(u'请输入你想值守的体育课名称或者其关键词(如:棒垒球)-> ')
             try:
                 courseName.decode('utf-8')
             except:
@@ -452,5 +459,6 @@ if __name__ == "__main__":
             I_just_wanna_this_one(semester,courseName, url, api)
     else:
         print u"要不试试退出后重新打开一下本程序？"
-    input(u'按任意键退出...'.encode('gbk'))
+    input(u'按任意键退出...')
+
 
