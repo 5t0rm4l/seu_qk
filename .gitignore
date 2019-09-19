@@ -1,0 +1,7 @@
+build/
+dist/
+downloads/
+*.manifest
+*.spec
+code.jpg
+config.ini
